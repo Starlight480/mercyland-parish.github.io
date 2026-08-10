@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — MercyLand Parish</title>
+  <meta name="description" content="Get in touch with MercyLand Parish, Lekki. Phone, address, map, and a message form." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Primary">
+      <a class="brand" href="index.html"><span class="mark" aria-hidden="true">M</span> MercyLand Parish</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="about.html">About</a></li>
+        <li><a href="service-times.html">Service Times</a></li>
+        <li><a href="sermons.html">Sermons</a></li>
+        <li><a href="ministries.html">Ministries</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="give.html">Give</a></li>
+        <li><a href="prayer.html">Prayer</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+        <li class="nav-cta"><a class="btn btn--primary" href="service-times.html">Visit</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-head wrap">
+      <h1>Contact</h1>
+      <p class="lead">We'd love to hear from you — whether it's a question, a prayer, or just to say hello.</p>
+    </div>
+
+    <section class="section" style="padding-top:1rem">
+      <div class="wrap">
+        <div class="grid grid--2" style="align-items:start">
+          <div class="card reveal">
+            <h2>Send a message</h2>
+            <form data-form data-subject="MercyLand Parish contact message" novalidate>
+              <div class="row">
+                <div>
+                  <label for="cname">Name *</label>
+                  <input id="cname" name="name" type="text" required autocomplete="name" />
+                </div>
+                <div>
+                  <label for="cemail">Email *</label>
+                  <input id="cemail" name="email" type="email" required autocomplete="email" />
+                </div>
+              </div>
+              <div>
+                <label for="cmsg">Message *</label>
+                <textarea id="cmsg" name="message" rows="5" required></textarea>
+              </div>
+              <button class="btn btn--primary" type="submit">Send message</button>
+              <p class="form-status" role="status" aria-live="polite"></p>
+              <p class="form-note">This form opens your email app to send the message. Connect an email address or Formspree in <code>assets/js/main.js</code> to receive messages automatically.</p>
+            </form>
+          </div>
+
+          <div>
+            <div class="card reveal" style="margin-bottom:1.4rem">
+              <h3>Reach us directly</h3>
+              <div class="visit-fact"><span class="ico" aria-hidden="true">📞</span><div><h4>Phone</h4><p><a href="tel:08083258810">0808 325 8810</a></p></div></div>
+              <div class="visit-fact"><span class="ico" aria-hidden="true">📍</span><div><h4>Address</h4><p>Plot 32/34, Lekki Atlantic Garden, Lekki–Epe Expy, Eti-Osa, Lagos 106104</p></div></div>
+              <div class="visit-fact"><span class="ico" aria-hidden="true">✉️</span><div><h4>Email</h4><p class="replace">hello@mercylandparish.org — to be confirmed</p></div></div>
+            </div>
+            <div class="map">
+              <iframe title="Map to MercyLand Parish" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=3.60%2C6.43%2C3.66%2C6.47&layer=mapnik&marker=6.45%2C3.63"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <div class="brand" style="color:#fff"><span class="mark" aria-hidden="true">M</span> MercyLand Parish</div>
+        <p style="margin-top:.8rem">A warm church family in Lekki Atlantic Garden, Lagos. All are welcome.</p>
+        <p class="muted"><span class="replace">Social links — to be added</span></p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <ul style="list-style:none;padding:0;margin:0">
+          <li>Plot 32/34, Lekki Atlantic Garden</li>
+          <li>Lekki–Epe Expy, Eti-Osa</li>
+          <li>Lagos 106104</li>
+          <li style="margin-top:.6rem"><a href="tel:08083258810">0808 325 8810</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Service Times</h4>
+        <ul style="list-style:none;padding:0;margin:0">
+          <li>Sunday · 7:00 AM – 12:00 PM</li>
+          <li>Tuesday · 6:30 PM – 8:00 PM</li>
+          <li>Thursday · 6:30 PM – 8:00 PM</li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">© <span id="yr"></span> MercyLand Parish · Lekki, Lagos · <a href="contact.html">Contact</a></div>
+  </footer>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
