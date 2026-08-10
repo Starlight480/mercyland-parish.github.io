@@ -10,9 +10,9 @@
   /* ---- palette (committed, not scattered accents) ---- */
   --ivory: #FBF7F0;
   --ivory-2: #F4EDE2;
-  --coral: #E8795C;          /* the single committed accent */
-  --coral-deep: #C75B3F;
-  --coral-soft: #F7D9CE;
+  --coral: #C8102E;          /* RCCG red — the Blood of Jesus (ring on white) */
+  --coral-deep: #9E0C22;     /* deeper red for hover / focus / links */
+  --coral-soft: #F6DDE0;     /* soft red tint: focus rings, placeholder slots */
   --sage: #7C9A8C;           /* calm secondary, used sparingly */
   --walnut: #34271F;         /* ink — warm near-black, never pure black */
   --walnut-soft: #5B4A3E;
@@ -118,8 +118,7 @@ input:focus, textarea:focus { border-color: var(--coral); outline: none; box-sha
 .brand { display: flex; align-items: center; gap: 0.6rem; font-family: var(--display); font-weight: 600; font-size: 1.25rem; color: var(--walnut); }
 .brand .mark {
   width: 34px; height: 34px; border-radius: 50%;
-  background: radial-gradient(circle at 32% 30%, var(--coral-soft), var(--coral));
-  display: grid; place-items: center; color: #fff; font-size: 1rem; font-family: var(--display);
+  object-fit: contain; display: block;
   box-shadow: var(--shadow-sm);
 }
 .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; margin: 0; padding: 0; }

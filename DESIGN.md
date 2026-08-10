@@ -12,13 +12,15 @@ Seed key `8ead9b23` (Impeccable v4.0.4, `--scope direction --mode persuade`). As
 
 ## Palette
 
+RCCG-aligned: the denomination's established identity is a **red ring on white** (red = the Blood of Jesus, white = purity). The site uses RCCG red as the committed accent.
+
 | Token | Hex | Role |
 |---|---|---|
 | `--ivory` | #FBF7F0 | Page ground |
 | `--ivory-2` | #F4EDE2 | Alternate section ground |
-| `--coral` | #E8795C | The single committed accent (buttons, pills, active states) |
-| `--coral-deep` | #C75B3F | Hover / focus / links |
-| `--coral-soft` | #F7D9CE | Tints, focus rings, placeholder slots |
+| `--coral` | #C8102E | **RCCG red** — the single committed accent (buttons, pills, active states, logo ring) |
+| `--coral-deep` | #9E0C22 | Hover / focus / links (deeper red) |
+| `--coral-soft` | #F6DDE0 | Tints, focus rings, placeholder slots |
 | `--sage` | #7C9A8C | Calm secondary (used sparingly, e.g. tile kicker) |
 | `--walnut` | #34271F | Ink (warm near-black, never pure black) |
 | `--walnut-soft` | #5B4A3E | Secondary text |

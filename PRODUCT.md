@@ -39,8 +39,10 @@ A young, warm parish in the Lekki Atlantic Garden estate — physically rooted i
 
 ## Brand Commitments
 
-- Name: **MercyLand Parish** (keep exact spelling and capitalisation).
+- Name: **RCCG MercyLand Parish** (Redeemed Christian Church of God — MercyLand Parish). Keep exact spelling and capitalisation; "RCCG" prefix is required.
 - Voice: warm, friendly, light, welcoming — modern, not archaic. No prosperity-hype or fear-based language.
+- Logo: RCCG official logo (red ring on white) used under CC BY-SA 4.0 (Wikimedia Commons, author Abolajiadeola). Attribution credit in footer.
+- Brand color: RCCG red `#C8102E` (the Blood of Jesus — ring on white) as the primary accent, paired with warm ivory ground and walnut ink.
 - No invented testimonials, attendance figures, founder names, or history. All such copy ships as clearly-marked placeholders on the church's replacement list.
 
 ## Evidence on Hand
