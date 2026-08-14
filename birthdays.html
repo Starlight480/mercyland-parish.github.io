@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Birthday Celebrants — RCCG MercyLand Parish</title>
+  <meta name="description" content="Celebrate your birthday with RCCG MercyLand Parish. Submit your details, upload your photo to our Google Drive, and view current monthly celebrants." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Primary">
+      <a class="brand" href="index.html"><img class="mark" src="assets/images/rccg-logo.png" alt="RCCG logo" width="34" height="34" /> RCCG MercyLand Parish</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="about.html">About</a></li>
+        <li><a href="service-times.html">Service Times</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="birthdays.html" aria-current="page">Birthdays</a></li>
+        <li><a href="sermons.html">Sermons</a></li>
+        <li><a href="give.html">Give</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="nav-cta"><a class="btn btn--primary" href="service-times.html">Visit</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-head wrap">
+      <h1>Birthday Celebrants</h1>
+      <p class="lead">We celebrate God's grace and blessings in your life! Share your upcoming birthday with our parish family.</p>
+    </div>
+
+    <section class="section" style="padding-top:1rem">
+      <div class="wrap">
+        <!-- Google Drive Photo Submission Banner -->
+        <div class="drive-box reveal">
+          <div>
+            <h3>📁 Share Your Birthday Photo</h3>
+            <p>Are you celebrating your birthday this month or coming up soon? Upload your picture to our official Google Drive folder so our media team can feature you during Sunday announcements!</p>
+          </div>
+          <div class="drive-box__actions">
+            <a class="btn btn--primary" href="[GOOGLE_DRIVE_FOLDER_URL]" target="_blank" rel="noopener">
+              <span>Open Google Drive Folder</span> ↗
+            </a>
+            <span class="replace">Upload slot ready — replace URL when available</span>
+          </div>
+        </div>
+
+        <div class="grid grid--2" style="margin-top:2.5rem;align-items:start">
+          <!-- Birthday Submission Form -->
+          <div class="card reveal">
+            <h2>Register Your Birthday</h2>
+            <p class="form-note">Fill in your details below so we can join you in prayers and thanksgiving.</p>
+
+            <form class="form" data-form data-subject="Birthday Celebrant Registration — MercyLand Parish" style="margin-top:1rem">
+              <div>
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="name" required placeholder="e.g. Brother Emmanuel Adebayo" />
+              </div>
+              <div class="row" style="grid-template-columns:1fr 1fr">
+                <div>
+                  <label for="birthDay">Day of Birth *</label>
+                  <select id="birthDay" name="birthDay" required>
+                    <option value="">Select Day</option>
+                    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                    <option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                    <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
+                    <option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>
+                    <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option>
+                    <option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option>
+                    <option value="31">31</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="birthMonth">Month of Birth *</label>
+                  <select id="birthMonth" name="birthMonth" required>
+                    <option value="">Select Month</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label for="phone">Phone Number (WhatsApp preferred)</label>
+                <input type="tel" id="phone" name="phone" placeholder="e.g. 0801 234 5678" />
+              </div>
+              <div>
+                <label for="prayerRequest">Birthday Testimony or Prayer Request</label>
+                <textarea id="prayerRequest" name="message" rows="3" placeholder="Share what God has done or what you are believing God for in your new year..."></textarea>
+              </div>
+              <div class="form-status"></div>
+              <button class="btn btn--primary" type="submit">Submit Birthday Info</button>
+            </form>
+          </div>
+
+          <!-- Current Month Celebrants Showcase -->
+          <div>
+            <h2>This Month's Celebrants 🎂</h2>
+            <p class="lead">Celebrating God's mercy over our brothers and sisters!</p>
+
+            <div class="grid" style="grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:1rem;margin-top:1.2rem">
+              <div class="celebrant-card reveal">
+                <div class="celebrant-avatar" aria-hidden="true">🎉</div>
+                <span class="celebrant-badge">Active Month</span>
+                <h3 class="replace--block" style="margin:0;font-size:1.15rem">Celebrant Name — REPLACE</h3>
+                <p class="form-note" style="margin:0">Birthdate: <span class="replace">Day &amp; Month</span></p>
+                <p style="font-size:0.88rem;color:var(--walnut-soft);margin:0">"Wishing you wisdom, peace, and divine favor in your new age!"</p>
+              </div>
+
+              <div class="celebrant-card reveal">
+                <div class="celebrant-avatar" aria-hidden="true">🎂</div>
+                <span class="celebrant-badge">Active Month</span>
+                <h3 class="replace--block" style="margin:0;font-size:1.15rem">Celebrant Name — REPLACE</h3>
+                <p class="form-note" style="margin:0">Birthdate: <span class="replace">Day &amp; Month</span></p>
+                <p style="font-size:0.88rem;color:var(--walnut-soft);margin:0">"May the Lord multiply your strength and bless your path."</p>
+              </div>
+            </div>
+
+            <p class="form-note" style="margin-top:1.5rem">Note for Parish Admin: When new celebrants upload their photo to Google Drive and submit the form, add their card above using their Drive image link.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <div class="brand" style="color:#fff"><img class="mark" src="assets/images/rccg-logo.png" alt="RCCG logo" width="34" height="34" /> RCCG MercyLand Parish</div>
+        <p style="margin-top:.8rem">A warm church family in Lekki Atlantic Garden, Lagos. All are welcome.</p>
+        <p class="muted"><span class="replace">Social links — to be added</span></p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <ul style="list-style:none;padding:0;margin:0">
+          <li>Plot 32/34, Lekki Atlantic Garden</li>
+          <li>Lekki–Epe Expy, Eti-Osa</li>
+          <li>Lagos 106104</li>
+          <li style="margin-top:.6rem"><a href="tel:08083258810">0808 325 8810</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Service Times &amp; Features</h4>
+        <ul style="list-style:none;padding:0;margin:0">
+          <li>Sunday · 7:00 AM – 12:00 PM</li>
+          <li>Tuesday · 6:30 PM – 8:00 PM</li>
+          <li>Thursday · 6:30 PM – 8:00 PM</li>
+          <li style="margin-top:.6rem"><a href="birthdays.html">Birthdays</a> · <a href="programs.html">Programs</a> · <a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+    © <span id="yr"></span> RCCG MercyLand Parish · Lekki, Lagos · <a href="contact.html">Contact</a>
+    <span class="muted" style="display:block;margin-top:.4rem">Logo courtesy RCCG (CC BY-SA 4.0, via Wikimedia Commons).</span>
+  </footer>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

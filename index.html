@@ -4,22 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RCCG MercyLand Parish — A warm church family in Lekki, Lagos</title>
-  <meta name="description" content="MercyLand Parish is a welcoming church in Lekki Atlantic Garden, Lagos. Service times, location, sermons, ministries, and how to visit." />
+  <meta name="description" content="MercyLand Parish is a welcoming church in Lekki Atlantic Garden, Lagos. Service times, location, programs, birthdays, and how to visit." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-<!--
-  DIRECTION CONTRACT — MercyLand Parish (seed key 8ead9b23, Impeccable v4.0.4)
-  THESIS: A church front door that proves welcome + the next service in the first viewport, refusing the generic "hero photo + verse + 3 cards" church template. A persistent Plan-Your-Visit path, not a brochure.
-  OWN-WORLD: Warm ivory ground (#FBF7F0), single committed RCCG red accent (#C8102E — the Blood of Jesus, ring on white) — calm sage secondary, warm walnut ink (#34271F). Instrument Serif display + Figtree body. Rounded 14px cards, soft offset shadows, red-soft focus rings. RCCG logo (CC BY-SA 4.0) in header + footer.
-  STORY: A first-time visitor in Lekki understands within seconds: this is a real, warm parish, here is the next service, here is exactly how to show up. They leave believing "I can walk in."
-  FIRST VIEWPORT: Left — coral pill ("You're welcome here"), display H1 "A place to belong in Lekki", lead line, two actions (Plan your visit / Watch or listen). Right — the next-service strip (relative day + time + label + CTA) over a soft coral sunrise halo. No stock hero photo, no verse overlay.
-  FORM: Coral & Mercy — assigned index 7 of the resonance-ordered grounded shortlist from concept-seed.mjs (--scope direction --mode persuade --from 8ead9b23). Challengers (Dong-Ho woodblock, manga, datamatics, phosphor terminal, drawcord cape, multiplane cel) declined: lose on both audience identification and product clarity for a warm local church.
-  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md.
--->
   <header class="site-header">
     <nav class="nav wrap" aria-label="Primary">
       <a class="brand" href="index.html"><img class="mark" src="assets/images/rccg-logo.png" alt="RCCG logo" width="34" height="34" /> RCCG MercyLand Parish</a>
@@ -29,11 +20,10 @@
       <ul class="nav-links" id="navlinks">
         <li><a href="about.html">About</a></li>
         <li><a href="service-times.html">Service Times</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="birthdays.html">Birthdays</a></li>
         <li><a href="sermons.html">Sermons</a></li>
-        <li><a href="ministries.html">Ministries</a></li>
-        <li><a href="events.html">Events</a></li>
         <li><a href="give.html">Give</a></li>
-        <li><a href="prayer.html">Prayer</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li class="nav-cta"><a class="btn btn--primary" href="service-times.html">Visit</a></li>
       </ul>
@@ -41,117 +31,83 @@
   </header>
 
   <main>
+    <!-- Spacious, Uncluttered Hero -->
     <section class="hero">
       <div class="hero__art" aria-hidden="true"></div>
       <div class="hero__sun" aria-hidden="true"></div>
-      <div class="hero__inner wrap">
+      <div class="hero__inner wrap" style="padding-block: clamp(4rem, 9vw, 7rem)">
         <span class="hero__pill">You're welcome here</span>
-        <h1>A place to belong in Lekki</h1>
-        <p class="lead">RCCG MercyLand Parish is a warm, welcoming church family in Lekki Atlantic Garden. Whether you're new to the area or returning to faith, there's a seat for you this Sunday.</p>
-        <div class="hero__actions">
+        <h1 style="max-width: 18ch">A place to belong in Lekki</h1>
+        <p class="lead" style="max-width: 60ch; margin-top: 1.2rem">RCCG MercyLand Parish is a warm, spirit-filled church family in Lekki Atlantic Garden. Whether you are searching for faith or looking for a home church, you are welcome here.</p>
+        
+        <div class="hero__actions" style="margin-top: 2.2rem">
           <a class="btn btn--primary" href="service-times.html">Plan your visit</a>
-          <a class="btn btn--ghost" href="sermons.html">Watch or listen</a>
+          <a class="btn btn--ghost" href="programs.html">Explore programs</a>
         </div>
-        <div class="next-service" data-next-service aria-live="polite"></div>
+
+        <div class="next-service" data-next-service aria-live="polite" style="margin-top: 3rem"></div>
       </div>
     </section>
 
+    <!-- Join Us This Week (Clean 2-Column Schedule & Expectation) -->
     <section class="section">
       <div class="wrap">
-        <div class="visit-grid">
+        <div class="visit-grid" style="gap: 3rem">
           <div>
-            <h2>Find us this week</h2>
+            <h2>Join us this week</h2>
             <p class="lead">Everything you need to walk through our doors with confidence.</p>
-            <div class="visit-fact">
-              <span class="ico" aria-hidden="true">⛪</span>
-              <div><h4>Sunday Services</h4><p>Within 7:00 AM – 12:00 PM · Lekki Atlantic Garden</p></div>
-            </div>
-            <div class="visit-fact">
-              <span class="ico" aria-hidden="true">🌿</span>
-              <div><h4>Midweek Services</h4><p>Tuesday &amp; Thursday · 6:30 PM – 8:00 PM</p></div>
-            </div>
-            <div class="visit-fact">
-              <span class="ico" aria-hidden="true">📍</span>
-              <div><h4>Our Location</h4><p>Plot 32/34, Lekki Atlantic Garden, Lekki–Epe Expy, Eti-Osa, Lagos 106104</p></div>
+            <div style="margin-top: 1.5rem">
+              <div class="visit-fact">
+                <span class="ico" aria-hidden="true">⛪</span>
+                <div><h4>Sunday Services</h4><p>Within 7:00 AM – 12:00 PM · Lekki Atlantic Garden</p></div>
+              </div>
+              <div class="visit-fact">
+                <span class="ico" aria-hidden="true">🌿</span>
+                <div><h4>Midweek Bible Study &amp; Prayer</h4><p>Tuesday &amp; Thursday · 6:30 PM – 8:00 PM</p></div>
+              </div>
+              <div class="visit-fact">
+                <span class="ico" aria-hidden="true">📍</span>
+                <div><h4>Our Location</h4><p>Plot 32/34, Lekki Atlantic Garden, Lekki–Epe Expy, Lagos</p></div>
+              </div>
             </div>
           </div>
-          <div class="card reveal">
+          <div class="card reveal" style="padding: 2rem">
             <h3>What to expect</h3>
-            <p>come as you are — no dress code, no pressure. Services are around <span class="replace">90 min</span>, with clear teaching, worship, and a friendly welcome team at the door.</p>
-            <p>Parking is available on-site, and <span class="replace">kids' church</span> runs during the Sunday morning service.</p>
-            <a class="btn btn--ghost" href="service-times.html">See service times &amp; map</a>
+            <p>Come as you are — no dress code, no pressure. Our services feature inspiring worship, practical teaching, and a friendly team ready to receive you.</p>
+            <p style="margin-top: 0.8rem">On-site parking is available, and kids' ministry runs during Sunday services.</p>
+            <a class="btn btn--ghost" href="service-times.html" style="margin-top: 1rem">Service times &amp; location map</a>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Quick Feature Cards (Programs, Birthdays, Prayer) -->
     <section class="section section--alt">
       <div class="wrap">
-        <h2 class="center">Grow with us</h2>
-        <p class="lead center" style="margin-inline:auto">Three simple ways to take a next step.</p>
-        <div class="grid grid--3" style="margin-top:2rem">
-          <div class="card reveal">
-            <h3>Visit a service</h3>
-            <p>Step into a warm room this Sunday. We'll help you find your seat and answer any questions.</p>
-            <a class="btn btn--ghost" href="service-times.html">Service times</a>
+        <h2 class="center">Parish Life &amp; Community</h2>
+        <p class="lead center" style="margin-inline:auto">Discover how to connect, grow, and celebrate with us.</p>
+        
+        <div class="grid grid--3" style="margin-top:2.5rem;gap:1.6rem">
+          <div class="card reveal" style="display:flex;flex-direction:column">
+            <span style="font-size:2.2rem;margin-bottom:0.5rem" aria-hidden="true">📅</span>
+            <h3>Programs &amp; Events</h3>
+            <p style="color:var(--walnut-soft);flex:1">Stay updated with our weekly gatherings, special revivals, and community outreaches.</p>
+            <a class="btn btn--ghost" href="programs.html" style="width:fit-content;margin-top:1rem">View programs</a>
           </div>
-          <div class="card reveal">
-            <h3>Join a ministry</h3>
-            <p>From music to mercy outreach, there's a place to serve and belong.</p>
-            <a class="btn btn--ghost" href="ministries.html">Explore ministries</a>
-          </div>
-          <div class="card reveal">
-            <h3>Send a prayer</h3>
-            <p>Carrying something? Our team would be glad to pray with you — confidentially.</p>
-            <a class="btn btn--ghost" href="prayer.html">Request prayer</a>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="section">
-      <div class="wrap">
-        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:1rem">
-          <div><h2>Latest messages</h2><p class="lead">Teaching to encourage you through the week.</p></div>
-          <a class="btn btn--ghost" href="sermons.html">All sermons</a>
-        </div>
-        <div class="grid grid--3" style="margin-top:1.5rem">
-          <article class="tile reveal">
-            <div class="tile__media" aria-hidden="true">🎧</div>
-            <div class="tile__body">
-              <span class="tile__kicker">Sermon series</span>
-              <h3 class="replace--block">Sermon title — to be added</h3>
-              <span class="tag">Notes · Audio soon</span>
-            </div>
-          </article>
-          <article class="tile reveal">
-            <div class="tile__media" aria-hidden="true">🎧</div>
-            <div class="tile__body">
-              <span class="tile__kicker">Sermon series</span>
-              <h3 class="replace--block">Sermon title — to be added</h3>
-              <span class="tag">Notes · Audio soon</span>
-            </div>
-          </article>
-          <article class="tile reveal">
-            <div class="tile__media" aria-hidden="true">🎧</div>
-            <div class="tile__body">
-              <span class="tile__kicker">Sermon series</span>
-              <h3 class="replace--block">Sermon title — to be added</h3>
-              <span class="tag">Notes · Audio soon</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
+          <div class="card reveal" style="display:flex;flex-direction:column">
+            <span style="font-size:2.2rem;margin-bottom:0.5rem" aria-hidden="true">🎂</span>
+            <h3>Birthday Celebrants</h3>
+            <p style="color:var(--walnut-soft);flex:1">Celebrating God's blessings! Register your birthday and share your photos with us.</p>
+            <a class="btn btn--ghost" href="birthdays.html" style="width:fit-content;margin-top:1rem">Celebrant page</a>
+          </div>
 
-    <section class="section section--alt">
-      <div class="wrap center">
-        <h2>Want to take a step?</h2>
-        <p class="lead" style="margin-inline:auto">Visit this Sunday, send us a prayer, or support the work.</p>
-        <div class="hero__actions" style="justify-content:center;margin-top:1.5rem">
-          <a class="btn btn--primary" href="service-times.html">Plan your visit</a>
-          <a class="btn btn--ghost" href="give.html">Give</a>
-          <a class="btn btn--ghost" href="prayer.html">Prayer request</a>
+          <div class="card reveal" style="display:flex;flex-direction:column">
+            <span style="font-size:2.2rem;margin-bottom:0.5rem" aria-hidden="true">🙏</span>
+            <h3>Prayer &amp; Support</h3>
+            <p style="color:var(--walnut-soft);flex:1">Carrying something in your heart? Our prayer team would be honored to pray with you.</p>
+            <a class="btn btn--ghost" href="prayer.html" style="width:fit-content;margin-top:1rem">Request prayer</a>
+          </div>
         </div>
       </div>
     </section>
@@ -165,7 +121,7 @@
         <p class="muted"><span class="replace">Social links — to be added</span></p>
       </div>
       <div>
-        <h4>Visit</h4>
+        <h4>Visit Us</h4>
         <ul style="list-style:none;padding:0;margin:0">
           <li>Plot 32/34, Lekki Atlantic Garden</li>
           <li>Lekki–Epe Expy, Eti-Osa</li>
@@ -174,12 +130,13 @@
         </ul>
       </div>
       <div>
-        <h4>Service Times</h4>
+        <h4>Quick Links</h4>
         <ul style="list-style:none;padding:0;margin:0">
-          <li>Sunday · 7:00 AM – 12:00 PM</li>
-          <li>Tuesday · 6:30 PM – 8:00 PM</li>
-          <li>Thursday · 6:30 PM – 8:00 PM</li>
-          <li style="margin-top:.6rem"><a href="service-times.html">Plan your visit →</a></li>
+          <li><a href="service-times.html">Service Times</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="birthdays.html">Birthdays</a></li>
+          <li><a href="sermons.html">Sermons</a></li>
+          <li><a href="blog.html">Blog</a></li>
         </ul>
       </div>
     </div>
