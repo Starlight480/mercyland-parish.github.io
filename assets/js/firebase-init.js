@@ -16,12 +16,12 @@
 
 // REPLACE this entire object with YOUR Firebase project config:
 const firebaseConfig = {
-  apiKey: "REPLACE_WITH_YOUR_API_KEY",
-  authDomain: "REPLACE_WITH_YOUR_AUTH_DOMAIN",
-  projectId: "REPLACE_WITH_YOUR_PROJECT_ID",
-  storageBucket: "REPLACE_WITH_YOUR_STORAGE_BUCKET",
-  messagingSenderId: "REPLACE_WITH_YOUR_MESSAGING_SENDER_ID",
-  appId: "REPLACE_WITH_YOUR_APP_ID"
+  apiKey: "AIzaSyDOA4GH2PQo83yCRAAb7vEeaQzzyDnVT28",
+  authDomain: "mercyland-parish.firebaseapp.com",
+  projectId: "mercyland-parish",
+  storageBucket: "mercyland-parish.firebasestorage.app",
+  messagingSenderId: "710817403984",
+  appId: "1:710817403984:web:61f67ae7599fb4b665ed55"
 };
 
 // Initialize Firebase (only if config has been filled in)
