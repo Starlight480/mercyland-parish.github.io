@@ -4,19 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin Portal — RCCG MercyLand Parish</title>
-  <meta name="description" content="Parish Administrator portal to manage website settings, service schedules, bank details, celebrants, and blog content." />
+  <meta name="description" content="Parish administrator portal. Update service times, bank details, celebrant images, blog posts, and social links." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css?v=5" />
   <style>
-    .admin-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; border-bottom: 2px solid var(--line); margin-bottom: 2rem; padding-bottom: 0.5rem; }
-    .admin-tab { background: none; border: none; padding: 0.7rem 1.2rem; font-family: var(--ui); font-weight: 600; font-size: 0.95rem; color: var(--text-muted); cursor: pointer; border-radius: 8px; transition: all .15s ease; }
-    .admin-tab:hover { background: var(--green-soft); color: var(--green-dark); }
-    .admin-tab.active { background: var(--green-dark); color: #FFFFFF; }
+    /* Admin-specific styles */
+    .admin-shell { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; align-items: start; }
+    .admin-sidebar { position: sticky; top: 80px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.2rem; box-shadow: var(--shadow-sm); }
+    .admin-sidebar h4 { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 0.6rem; }
+    .admin-nav-link { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.8rem; border-radius: 8px; font-family: var(--ui); font-weight: 600; font-size: 0.9rem; color: var(--text-muted); cursor: pointer; border: none; background: none; width: 100%; text-align: left; transition: all .15s ease; }
+    .admin-nav-link:hover { background: var(--green-soft); color: var(--green-dark); }
+    .admin-nav-link.active { background: var(--green-dark); color: #FFFFFF; }
+    .admin-nav-link svg { width: 16px; height: 16px; stroke: currentColor; flex-shrink: 0; }
     .admin-panel { display: none; }
     .admin-panel.active { display: block; }
-    .code-export { background: var(--green-deep); color: #A7F3D0; padding: 1.2rem; border-radius: var(--radius-sm); font-family: monospace; font-size: 0.88rem; overflow-x: auto; white-space: pre-wrap; margin-top: 1rem; }
+    .field-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; margin-bottom: 0; }
+    .saving-indicator { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; }
+    .saving-indicator::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #22C55E; }
+    #authGate { max-width: 460px; margin-inline: auto; }
+    .firebase-notice { background: #FDF9EE; border: 1.5px solid var(--gold-border); border-radius: var(--radius-sm); padding: 1rem 1.2rem; font-size: 0.9rem; }
+    .firebase-notice strong { color: var(--green-dark); }
+    @media (max-width: 760px) { .admin-shell { grid-template-columns: 1fr; } .admin-sidebar { position: static; } }
   </style>
 </head>
 <body>
@@ -27,231 +37,277 @@
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
       <ul class="nav-links" id="navlinks">
+        <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="service-times.html">Service Times</a></li>
         <li><a href="programs.html">Programs</a></li>
         <li><a href="birthdays.html">Birthdays</a></li>
-        <li><a href="sermons.html">Sermons</a></li>
         <li><a href="ministries.html">Ministries</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="give.html">Give</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li class="nav-cta"><a class="btn btn--primary" href="admin.html" aria-current="page">Admin Portal</a></li>
+        <li class="nav-cta"><a class="btn btn--primary" href="admin.html" aria-current="page">Admin</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
     <div class="page-head wrap">
-      <h1>Parish Administrator Portal</h1>
-      <p class="lead">Update missing information, service schedules, bank account details, and birthday celebrants links.</p>
+      <h1>Admin Portal</h1>
+      <p class="lead">Edit and publish parish information that appears live on the website.</p>
     </div>
 
     <section class="section" style="padding-top:1rem">
       <div class="wrap">
-        <!-- Admin Passcode Gate (Client-Side Protection) -->
-        <div id="authGate" class="card reveal" style="max-width:480px;margin-inline:auto;text-align:center;padding:2.5rem 1.8rem">
-          <div class="card-icon-badge" style="margin-inline:auto;margin-bottom:1rem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+
+        <!-- AUTH GATE -->
+        <div id="authGate" class="card reveal" style="text-align:center;padding:2.5rem 2rem">
+          <div class="card-icon-badge" style="margin-inline:auto;margin-bottom:1rem" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
-          <h3>Admin Authentication</h3>
-          <p class="form-note" style="margin-bottom:1.5rem">Enter parish admin passcode to access site editor tools. (Default demo passcode: <code>mercyland123</code>)</p>
-          <form id="passForm" style="display:grid;gap:1rem">
-            <input type="password" id="passcode" placeholder="Enter Admin Passcode" required style="text-align:center;font-size:1.1rem;letter-spacing:0.1em" />
-            <button class="btn btn--primary" type="submit">Access Admin Panel</button>
-            <div id="authErr" class="form-status err" style="margin-top:0.5rem">Incorrect passcode. Try again.</div>
+          <h2 style="margin-bottom:0.4rem">Admin Login</h2>
+          <p class="form-note" style="margin-bottom:1.5rem">Enter your admin passcode to access site editing tools.</p>
+          <form id="passForm" style="display:grid;gap:1rem;max-width:320px;margin-inline:auto">
+            <input type="password" id="passcode" placeholder="Admin Passcode" required style="text-align:center;font-size:1.1rem;letter-spacing:0.12em" />
+            <button class="btn btn--primary" type="submit" style="width:100%">Sign In</button>
+            <div class="form-status err" id="authErr">Incorrect passcode. Please try again.</div>
           </form>
         </div>
 
-        <!-- Main Admin Workspace (Hidden until auth) -->
+        <!-- MAIN WORKSPACE -->
         <div id="adminWorkspace" style="display:none">
-          <div class="admin-tabs">
-            <button class="admin-tab active" data-tab="tab-general">⚙️ General Info</button>
-            <button class="admin-tab" data-tab="tab-services">⛪ Service Times</button>
-            <button class="admin-tab" data-tab="tab-giving">💳 Bank Details</button>
-            <button class="admin-tab" data-tab="tab-celebrants">🎂 Celebrants &amp; Drive</button>
-            <button class="admin-tab" data-tab="tab-blog">✍️ Blog &amp; Sermons</button>
+          <!-- Firebase Status Notice -->
+          <div class="firebase-notice" id="firebaseStatus" style="margin-bottom:1.5rem">
+            <strong>⚠️ Firebase not configured yet.</strong> Your changes will not be saved until you complete the Firebase setup.
+            <a href="#panel-setup" id="setupLink" style="margin-left:0.5rem">See setup guide →</a>
+          </div>
+          <div class="firebase-notice" id="firebaseOk" style="display:none;background:#E8F5E9;border-color:#C8E6C9">
+            <strong style="color:#1B5E20">✅ Connected to Firebase.</strong> All changes save directly to the live website database.
           </div>
 
-          <!-- TAB 1: GENERAL INFO -->
-          <div id="tab-general" class="admin-panel active card">
-            <h2>General Parish Details</h2>
-            <p class="form-note">Update contact information, pastor details, and social media handles.</p>
+          <div class="admin-shell">
+            <!-- Sidebar Nav -->
+            <aside class="admin-sidebar">
+              <h4>Admin Sections</h4>
+              <nav style="display:grid;gap:0.3rem">
+                <button class="admin-nav-link active" data-panel="panel-general">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                  General Info
+                </button>
+                <button class="admin-nav-link" data-panel="panel-services">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  Service Times
+                </button>
+                <button class="admin-nav-link" data-panel="panel-giving">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                  Bank Details
+                </button>
+                <button class="admin-nav-link" data-panel="panel-celebrants">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+                  Celebrants
+                </button>
+                <button class="admin-nav-link" data-panel="panel-social">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                  Social Links
+                </button>
+                <button class="admin-nav-link" data-panel="panel-setup">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  Firebase Setup
+                </button>
+                <hr style="border:none;border-top:1px solid var(--line);margin:.3rem 0" />
+                <button class="admin-nav-link" id="logoutBtn" style="color:#C62828">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                  Sign Out
+                </button>
+              </nav>
+            </aside>
 
-            <form class="form" id="formGeneral" style="margin-top:1.5rem">
-              <div class="row" style="grid-template-columns:1fr 1fr">
-                <div>
-                  <label for="adminPastor">Pastor's Full Name</label>
-                  <input type="text" id="adminPastor" placeholder="e.g. Pastor Emmanuel Adebayo" />
-                </div>
-                <div>
-                  <label for="adminPhone">Official Phone Number</label>
-                  <input type="tel" id="adminPhone" placeholder="e.g. 08083258810" />
-                </div>
-              </div>
-              <div class="row" style="grid-template-columns:1fr 1fr">
-                <div>
-                  <label for="adminEmail">Parish Email Address</label>
-                  <input type="email" id="adminEmail" placeholder="e.g. info@mercylandparish.org" />
-                </div>
-                <div>
-                  <label for="adminDrive">Google Drive Photo Folder Link</label>
-                  <input type="url" id="adminDrive" placeholder="https://drive.google.com/drive/folders/..." />
-                </div>
-              </div>
-              <div>
-                <label for="adminAddress">Physical Address</label>
-                <input type="text" id="adminAddress" value="Plot 32/34, Lekki Atlantic Garden, Lekki–Epe Expy, Eti-Osa, Lagos 106104" />
-              </div>
-              <div>
-                <label for="adminPastorBio">Pastor's Welcome Message / Bio</label>
-                <textarea id="adminPastorBio" rows="3" placeholder="Welcome to RCCG MercyLand Parish..."></textarea>
-              </div>
+            <!-- Panels -->
+            <div style="min-width:0">
 
-              <button class="btn btn--primary" type="submit" style="width:fit-content;margin-top:1rem">Save General Info</button>
-              <div class="form-status ok" id="generalStatus">General details saved successfully!</div>
-            </form>
-          </div>
-
-          <!-- TAB 2: SERVICE TIMES -->
-          <div id="tab-services" class="admin-panel card">
-            <h2>Service Times &amp; Schedule</h2>
-            <p class="form-note">Confirm exact Sunday start times and midweek gathering hours.</p>
-
-            <form class="form" id="formServices" style="margin-top:1.5rem">
-              <div class="row" style="grid-template-columns:1fr 1fr">
-                <div>
-                  <label for="sunService1">Sunday 1st Service Start Time</label>
-                  <input type="text" id="sunService1" placeholder="e.g. 7:30 AM" />
-                </div>
-                <div>
-                  <label for="sunService2">Sunday 2nd Service Start Time</label>
-                  <input type="text" id="sunService2" placeholder="e.g. 10:00 AM" />
-                </div>
-              </div>
-              <div class="row" style="grid-template-columns:1fr 1fr">
-                <div>
-                  <label for="tueService">Tuesday Bible Study Time</label>
-                  <input type="text" id="tueService" value="6:30 PM – 8:00 PM" />
-                </div>
-                <div>
-                  <label for="thuService">Thursday Prayer Clinic Time</label>
-                  <input type="text" id="thuService" value="6:30 PM – 8:00 PM" />
-                </div>
-              </div>
-
-              <button class="btn btn--primary" type="submit" style="width:fit-content;margin-top:1rem">Save Service Schedule</button>
-              <div class="form-status ok" id="servicesStatus">Service schedule saved successfully!</div>
-            </form>
-          </div>
-
-          <!-- TAB 3: BANK DETAILS -->
-          <div id="tab-giving" class="admin-panel card">
-            <h2>Giving &amp; Bank Account Details</h2>
-            <p class="form-note">Update tithe, offering, and building fund bank account information for the Give page.</p>
-
-            <form class="form" id="formGiving" style="margin-top:1.5rem">
-              <div class="row" style="grid-template-columns:1fr 1fr">
-                <div>
-                  <label for="bankName">Bank Name</label>
-                  <input type="text" id="bankName" placeholder="e.g. GTBank / Zenith Bank / Access Bank" />
-                </div>
-                <div>
-                  <label for="acctNum">Account Number</label>
-                  <input type="text" id="acctNum" placeholder="e.g. 0123456789" />
-                </div>
-              </div>
-              <div class="row" style="grid-template-columns:1fr 1fr">
-                <div>
-                  <label for="acctName">Account Name</label>
-                  <input type="text" id="acctName" placeholder="e.g. RCCG MercyLand Parish" />
-                </div>
-                <div>
-                  <label for="paystackUrl">Online Donation / Paystack Link (Optional)</label>
-                  <input type="url" id="paystackUrl" placeholder="https://paystack.com/pay/mercyland" />
-                </div>
+              <!-- ① GENERAL INFO -->
+              <div id="panel-general" class="admin-panel active card">
+                <h2>General Parish Info</h2>
+                <p class="form-note">This information appears across multiple pages of the website.</p>
+                <form class="form" id="formGeneral" style="margin-top:1.5rem">
+                  <div class="row" style="grid-template-columns:1fr 1fr">
+                    <div>
+                      <label for="f-pastor">Pastor's Full Name</label>
+                      <input type="text" id="f-pastor" name="pastor" placeholder="e.g. Pastor Emmanuel Adebayo" />
+                      <p class="field-desc">Shown on the About page</p>
+                    </div>
+                    <div>
+                      <label for="f-phone">Phone Number</label>
+                      <input type="tel" id="f-phone" name="phone" placeholder="e.g. 08083258810" />
+                      <p class="field-desc">Shown on Contact &amp; footer</p>
+                    </div>
+                  </div>
+                  <div class="row" style="grid-template-columns:1fr 1fr">
+                    <div>
+                      <label for="f-email">Parish Email</label>
+                      <input type="email" id="f-email" name="email" placeholder="e.g. info@mercyland.org" />
+                    </div>
+                    <div>
+                      <label for="f-address">Physical Address</label>
+                      <input type="text" id="f-address" name="address" placeholder="Plot 32/34, Lekki Atlantic Garden..." />
+                    </div>
+                  </div>
+                  <div>
+                    <label for="f-pastorBio">Pastor's Welcome Message</label>
+                    <textarea id="f-pastorBio" name="pastorBio" rows="4" placeholder="Welcome to RCCG MercyLand Parish..."></textarea>
+                    <p class="field-desc">Appears on the About &amp; Home page welcome card</p>
+                  </div>
+                  <div class="form-status ok" id="generalOk" style="display:none">✅ General info saved to the live website!</div>
+                  <div class="form-status err" id="generalErr" style="display:none">❌ Error saving — check your Firebase setup.</div>
+                  <button class="btn btn--primary" type="submit" style="width:fit-content">Save General Info</button>
+                </form>
               </div>
 
-              <button class="btn btn--primary" type="submit" style="width:fit-content;margin-top:1rem">Save Bank Info</button>
-              <div class="form-status ok" id="givingStatus">Bank information saved successfully!</div>
-            </form>
-          </div>
-
-          <!-- TAB 4: CELEBRANTS & DRIVE -->
-          <div id="tab-celebrants" class="admin-panel card">
-            <h2>Birthday Celebrants &amp; Drive Link</h2>
-            <p class="form-note">Manage Google Drive link and celebrant cards display.</p>
-
-            <form class="form" id="formCelebrant" style="margin-top:1.5rem">
-              <div>
-                <label for="celebDriveLink">Google Drive Upload Folder URL</label>
-                <input type="url" id="celebDriveLink" placeholder="https://drive.google.com/drive/folders/YOUR_FOLDER_ID" />
+              <!-- ② SERVICE TIMES -->
+              <div id="panel-services" class="admin-panel card">
+                <h2>Service Times</h2>
+                <p class="form-note">These appear on the Service Times page and the homepage "Join Us" section.</p>
+                <form class="form" id="formServices" style="margin-top:1.5rem">
+                  <div class="row" style="grid-template-columns:1fr 1fr">
+                    <div>
+                      <label for="f-sunday1">Sunday 1st Service</label>
+                      <input type="text" id="f-sunday1" name="sunday1" placeholder="e.g. 7:30 AM" />
+                    </div>
+                    <div>
+                      <label for="f-sunday2">Sunday 2nd Service</label>
+                      <input type="text" id="f-sunday2" name="sunday2" placeholder="e.g. 10:00 AM" />
+                    </div>
+                  </div>
+                  <div class="row" style="grid-template-columns:1fr 1fr">
+                    <div>
+                      <label for="f-tuesday">Tuesday Bible Study</label>
+                      <input type="text" id="f-tuesday" name="tuesday" placeholder="e.g. 6:30 PM – 8:00 PM" />
+                    </div>
+                    <div>
+                      <label for="f-thursday">Thursday Prayer Clinic</label>
+                      <input type="text" id="f-thursday" name="thursday" placeholder="e.g. 6:30 PM – 8:00 PM" />
+                    </div>
+                  </div>
+                  <div class="form-status ok" id="servicesOk" style="display:none">✅ Service times updated on the live website!</div>
+                  <div class="form-status err" id="servicesErr" style="display:none">❌ Error saving — check your Firebase setup.</div>
+                  <button class="btn btn--primary" type="submit" style="width:fit-content">Save Service Times</button>
+                </form>
               </div>
-              
-              <h4 style="margin-top:1.5rem">Add Celebrant Card</h4>
-              <div class="row" style="grid-template-columns:1fr 1fr">
-                <div>
-                  <label for="celebName">Celebrant Name</label>
-                  <input type="text" id="celebName" placeholder="e.g. Sister Mercy Okon" />
+
+              <!-- ③ BANK DETAILS -->
+              <div id="panel-giving" class="admin-panel card">
+                <h2>Giving &amp; Bank Account Details</h2>
+                <p class="form-note">These appear on the <a href="give.html">Give page</a>. Once saved, visitors will see the updated information immediately.</p>
+                <form class="form" id="formGiving" style="margin-top:1.5rem">
+                  <div class="row" style="grid-template-columns:1fr 1fr">
+                    <div>
+                      <label for="f-bankName">Bank Name</label>
+                      <input type="text" id="f-bankName" name="bankName" placeholder="e.g. GTBank" />
+                    </div>
+                    <div>
+                      <label for="f-acctNum">Account Number</label>
+                      <input type="text" id="f-acctNum" name="acctNum" placeholder="e.g. 0123456789" />
+                    </div>
+                  </div>
+                  <div class="row" style="grid-template-columns:1fr 1fr">
+                    <div>
+                      <label for="f-acctName">Account Name</label>
+                      <input type="text" id="f-acctName" name="acctName" placeholder="e.g. RCCG MercyLand Parish" />
+                    </div>
+                    <div>
+                      <label for="f-paystackUrl">Online Giving Link (Optional)</label>
+                      <input type="url" id="f-paystackUrl" name="paystackUrl" placeholder="https://paystack.com/pay/..." />
+                    </div>
+                  </div>
+                  <div class="form-status ok" id="givingOk" style="display:none">✅ Bank details updated on the Give page!</div>
+                  <div class="form-status err" id="givingErr" style="display:none">❌ Error saving — check your Firebase setup.</div>
+                  <button class="btn btn--primary" type="submit" style="width:fit-content">Save Bank Details</button>
+                </form>
+              </div>
+
+              <!-- ④ CELEBRANTS -->
+              <div id="panel-celebrants" class="admin-panel card">
+                <h2>Birthday Celebrants &amp; Drive Link</h2>
+                <p class="form-note">Set the Google Drive folder link that appears on the Birthdays page.</p>
+                <form class="form" id="formCelebrant" style="margin-top:1.5rem">
+                  <div>
+                    <label for="f-driveUrl">Google Drive Folder URL</label>
+                    <input type="url" id="f-driveUrl" name="driveUrl" placeholder="https://drive.google.com/drive/folders/..." />
+                    <p class="field-desc">This is the link parishioners click to upload their birthday photo</p>
+                  </div>
+                  <div class="form-status ok" id="celebOk" style="display:none">✅ Drive link updated on the Birthdays page!</div>
+                  <div class="form-status err" id="celebErr" style="display:none">❌ Error saving — check your Firebase setup.</div>
+                  <button class="btn btn--primary" type="submit" style="width:fit-content">Save Drive Link</button>
+                </form>
+              </div>
+
+              <!-- ⑤ SOCIAL LINKS -->
+              <div id="panel-social" class="admin-panel card">
+                <h2>Social Media Links</h2>
+                <p class="form-note">These appear in the website footer across all pages.</p>
+                <form class="form" id="formSocial" style="margin-top:1.5rem">
+                  <div class="row" style="grid-template-columns:1fr 1fr">
+                    <div>
+                      <label for="f-facebook">Facebook Page URL</label>
+                      <input type="url" id="f-facebook" name="facebook" placeholder="https://facebook.com/mercylandparish" />
+                    </div>
+                    <div>
+                      <label for="f-youtube">YouTube Channel URL</label>
+                      <input type="url" id="f-youtube" name="youtube" placeholder="https://youtube.com/@mercylandparish" />
+                    </div>
+                  </div>
+                  <div class="row" style="grid-template-columns:1fr 1fr">
+                    <div>
+                      <label for="f-instagram">Instagram URL</label>
+                      <input type="url" id="f-instagram" name="instagram" placeholder="https://instagram.com/mercylandparish" />
+                    </div>
+                    <div>
+                      <label for="f-whatsapp">WhatsApp Group Link</label>
+                      <input type="url" id="f-whatsapp" name="whatsapp" placeholder="https://chat.whatsapp.com/..." />
+                    </div>
+                  </div>
+                  <div class="form-status ok" id="socialOk" style="display:none">✅ Social links updated in the footer!</div>
+                  <div class="form-status err" id="socialErr" style="display:none">❌ Error saving — check your Firebase setup.</div>
+                  <button class="btn btn--primary" type="submit" style="width:fit-content">Save Social Links</button>
+                </form>
+              </div>
+
+              <!-- ⑥ FIREBASE SETUP GUIDE -->
+              <div id="panel-setup" class="admin-panel card">
+                <h2>Firebase Setup Guide</h2>
+                <p class="lead">Follow these steps once to connect the admin portal to the live website database.</p>
+
+                <div style="display:grid;gap:1.2rem;margin-top:1.5rem">
+                  <div class="card" style="background:var(--bg-alt);border-left:4px solid var(--green-dark);padding:1.2rem 1.5rem">
+                    <h4>Step 1 — Create a Firebase Project</h4>
+                    <p>Go to <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a> → Click <strong>"Add project"</strong> → Name it <code>mercyland-parish</code> → Click through to create it.</p>
+                  </div>
+                  <div class="card" style="background:var(--bg-alt);border-left:4px solid var(--green-dark);padding:1.2rem 1.5rem">
+                    <h4>Step 2 — Enable Firestore Database</h4>
+                    <p>In your project, go to <strong>Build → Firestore Database</strong> → Click <strong>"Create database"</strong> → Select <strong>"Start in test mode"</strong> → Choose any region → Enable.</p>
+                  </div>
+                  <div class="card" style="background:var(--bg-alt);border-left:4px solid var(--green-dark);padding:1.2rem 1.5rem">
+                    <h4>Step 3 — Register a Web App &amp; Get Config</h4>
+                    <p>In your project dashboard, click the <strong>&lt;/&gt;</strong> icon → Register app as <code>mercyland-site</code> → Copy the <code>firebaseConfig</code> object shown.</p>
+                  </div>
+                  <div class="card" style="background:var(--bg-alt);border-left:4px solid var(--green-dark);padding:1.2rem 1.5rem">
+                    <h4>Step 4 — Paste Config into the Site</h4>
+                    <p>Open <code>assets/js/firebase-init.js</code> in the project folder → Replace the <code>REPLACE_WITH_...</code> placeholder values with your copied Firebase config → Save the file.</p>
+                  </div>
+                  <div class="card" style="background:var(--bg-alt);border-left:4px solid var(--green-dark);padding:1.2rem 1.5rem">
+                    <h4>Step 5 — Push to GitHub</h4>
+                    <p>In your terminal: <code>git add . &amp;&amp; git commit -m "Add Firebase config" &amp;&amp; git push</code><br />Your admin portal will then save directly to the live website!</p>
+                  </div>
                 </div>
-                <div>
-                  <label for="celebDate">Birthdate (Day &amp; Month)</label>
-                  <input type="text" id="celebDate" placeholder="e.g. 14th August" />
+
+                <div class="firebase-notice" style="margin-top:1.5rem">
+                  <strong>Admin Passcode:</strong> The current default passcode is <code>mercyland123</code>. To change it, open <code>admin.html</code> and find the line <code>if (code === "mercyland123")</code> and replace it with your own secret word.
                 </div>
               </div>
-              <div>
-                <label for="celebPhoto">Celebrant Photo Drive/Image URL</label>
-                <input type="url" id="celebPhoto" placeholder="https://drive.google.com/uc?id=..." />
-              </div>
 
-              <button class="btn btn--primary" type="submit" style="width:fit-content;margin-top:1rem">Save Celebrant Information</button>
-              <div class="form-status ok" id="celebStatus">Celebrant info saved!</div>
-            </form>
-          </div>
-
-          <!-- TAB 5: BLOG & SERMONS -->
-          <div id="tab-blog" class="admin-panel card">
-            <h2>Publish Blog Post / Sermon Outline</h2>
-            <p class="form-note">Add new devotional or sermon notes for church members.</p>
-
-            <form class="form" id="formBlog" style="margin-top:1.5rem">
-              <div>
-                <label for="postTitle">Title *</label>
-                <input type="text" id="postTitle" required placeholder="e.g. Understanding Divine Favor" />
-              </div>
-              <div class="row" style="grid-template-columns:1fr 1fr">
-                <div>
-                  <label for="postCategory">Category</label>
-                  <select id="postCategory">
-                    <option value="Devotional">Devotional</option>
-                    <option value="Sermon Notes">Sermon Notes</option>
-                    <option value="Announcement">Announcement</option>
-                    <option value="Community">Community</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="postDate">Publication Date</label>
-                  <input type="text" id="postDate" placeholder="e.g. August 14, 2026" />
-                </div>
-              </div>
-              <div>
-                <label for="postContent">Full Post Content / Outline *</label>
-                <textarea id="postContent" rows="6" required placeholder="Write the sermon outline or devotional content here..."></textarea>
-              </div>
-
-              <button class="btn btn--primary" type="submit" style="width:fit-content;margin-top:1rem">Publish Entry</button>
-              <div class="form-status ok" id="blogStatus">Entry published successfully!</div>
-            </form>
-          </div>
-
-          <!-- EXPORT DATA & CONFIG SNIPPETS -->
-          <div class="card" style="margin-top:2rem;background:var(--bg-alt)">
-            <h3>Export Data &amp; Update Snippet</h3>
-            <p class="form-note">Copy the generated JSON code below to update site settings anytime.</p>
-            <button class="btn btn--ghost" id="copyConfigBtn">Copy Config JSON</button>
-            <pre class="code-export" id="configExport">{\n  "churchName": "RCCG MercyLand Parish",\n  "phone": "08083258810",\n  "address": "Plot 32/34, Lekki Atlantic Garden, Lekki-Epe Expy, Lagos"\n}</pre>
-          </div>
-        </div>
+            </div><!-- /panels -->
+          </div><!-- /admin-shell -->
+        </div><!-- /adminWorkspace -->
       </div>
     </section>
   </main>
@@ -260,8 +316,7 @@
     <div class="wrap footer-grid">
       <div>
         <div class="brand" style="color:#fff"><img class="mark" src="assets/images/rccg-logo.png" alt="RCCG logo" width="36" height="36" /> RCCG MercyLand Parish</div>
-        <p style="margin-top:.8rem">A warm church family in Lekki Atlantic Garden, Lagos. All are welcome.</p>
-        <p class="muted"><span class="replace">Social links — to be added</span></p>
+        <p style="margin-top:.8rem">A warm church family in Lekki Atlantic Garden, Lagos.</p>
       </div>
       <div>
         <h4>Visit Us</h4>
@@ -276,95 +331,154 @@
         <h4>Quick Links</h4>
         <ul style="list-style:none;padding:0;margin:0">
           <li><a href="service-times.html">Service Times</a></li>
-          <li><a href="programs.html">Programs</a></li>
+          <li><a href="give.html">Give</a></li>
           <li><a href="birthdays.html">Birthdays</a></li>
-          <li><a href="ministries.html">Ministries</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="admin.html">Admin Portal</a></li>
         </ul>
       </div>
     </div>
     <div class="wrap footer-bottom">
-      © <span id="yr"></span> RCCG MercyLand Parish · Lekki, Lagos · <a href="contact.html">Contact</a> · <a href="admin.html">Admin</a>
-      <span class="muted" style="display:block;margin-top:.4rem">Logo courtesy RCCG (CC BY-SA 4.0, via Wikimedia Commons).</span>
+      © <span id="yr"></span> RCCG MercyLand Parish · Lekki, Lagos · <a href="contact.html">Contact</a> · <a href="admin.html">Admin Portal</a>
     </div>
   </footer>
+
+  <!-- Firebase SDK (v9 compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="assets/js/firebase-init.js"></script>
+  <script src="assets/js/site-data.js"></script>
 
   <script>
     document.getElementById("yr").textContent = new Date().getFullYear();
 
-    // Tab Switcher
-    const tabs = document.querySelectorAll(".admin-tab");
+    // ---- Firebase Connection Status ----
+    if (window.db) {
+      document.getElementById("firebaseStatus").style.display = "none";
+      document.getElementById("firebaseOk").style.display = "";
+    }
+
+    // ---- Panel Navigation ----
+    const navLinks = document.querySelectorAll(".admin-nav-link[data-panel]");
     const panels = document.querySelectorAll(".admin-panel");
-    tabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        tabs.forEach(t => t.classList.remove("active"));
+    navLinks.forEach(btn => {
+      btn.addEventListener("click", () => {
+        navLinks.forEach(b => b.classList.remove("active"));
         panels.forEach(p => p.classList.remove("active"));
-        tab.classList.add("active");
-        document.getElementById(tab.getAttribute("data-tab")).classList.add("active");
+        btn.classList.add("active");
+        document.getElementById(btn.dataset.panel).classList.add("active");
       });
     });
+    // handle the setup link in the notice
+    document.getElementById("setupLink").addEventListener("click", (e) => {
+      e.preventDefault();
+      document.querySelector('[data-panel="panel-setup"]').click();
+    });
 
-    // Simple Passcode Protection
+    // ---- Auth Gate ----
     const authGate = document.getElementById("authGate");
     const adminWorkspace = document.getElementById("adminWorkspace");
-    const passForm = document.getElementById("passForm");
     const authErr = document.getElementById("authErr");
 
-    // Check if already authenticated
-    if (localStorage.getItem("mercyland_admin_auth") === "true") {
+    if (localStorage.getItem("ml_admin_auth") === "true") {
       authGate.style.display = "none";
       adminWorkspace.style.display = "block";
+      loadAllFields();
     }
 
-    passForm.addEventListener("submit", (e) => {
+    document.getElementById("passForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const code = document.getElementById("passcode").value.trim();
-      if (code === "mercyland123" || code === "admin") {
-        localStorage.setItem("mercyland_admin_auth", "true");
+      if (code === "mercyland123") {
+        localStorage.setItem("ml_admin_auth", "true");
         authGate.style.display = "none";
         adminWorkspace.style.display = "block";
+        await loadAllFields();
       } else {
         authErr.style.display = "block";
+        document.getElementById("passcode").value = "";
       }
     });
 
-    // Form handlers & LocalStorage sync
-    function saveAdminData() {
-      const data = {
-        pastor: document.getElementById("adminPastor").value,
-        phone: document.getElementById("adminPhone").value,
-        email: document.getElementById("adminEmail").value,
-        drive: document.getElementById("adminDrive").value,
-        address: document.getElementById("adminAddress").value,
-        bankName: document.getElementById("bankName").value,
-        acctNum: document.getElementById("acctNum").value,
-        acctName: document.getElementById("acctName").value,
-        lastUpdated: new Date().toISOString()
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("ml_admin_auth");
+      location.reload();
+    });
+
+    // ---- Load existing Firestore data into forms ----
+    async function loadAllFields() {
+      const data = await window.MercyLandAdmin.loadConfig();
+      if (!data) return;
+      const map = {
+        "f-pastor": "pastor", "f-phone": "phone", "f-email": "email",
+        "f-address": "address", "f-pastorBio": "pastorBio",
+        "f-sunday1": "sunday1", "f-sunday2": "sunday2",
+        "f-tuesday": "tuesday", "f-thursday": "thursday",
+        "f-bankName": "bankName", "f-acctNum": "acctNum",
+        "f-acctName": "acctName", "f-paystackUrl": "paystackUrl",
+        "f-driveUrl": "driveUrl",
+        "f-facebook": "facebook", "f-youtube": "youtube",
+        "f-instagram": "instagram", "f-whatsapp": "whatsapp"
       };
-      localStorage.setItem("mercyland_config", JSON.stringify(data));
-      document.getElementById("configExport").textContent = JSON.stringify(data, null, 2);
+      Object.entries(map).forEach(([elId, key]) => {
+        const el = document.getElementById(elId);
+        if (el && data[key]) el.value = data[key];
+      });
     }
 
-    document.querySelectorAll("form").forEach(f => {
-      if (f.id !== "passForm") {
-        f.addEventListener("submit", (e) => {
-          e.preventDefault();
-          saveAdminData();
-          const status = f.querySelector(".form-status");
-          if (status) {
-            status.style.display = "block";
-            setTimeout(() => { status.style.display = "none"; }, 3000);
-          }
-        });
+    // ---- Generic save helper ----
+    async function saveForm(fields, okId, errId) {
+      const data = {};
+      fields.forEach(([elId, key]) => {
+        const el = document.getElementById(elId);
+        if (el) data[key] = el.value.trim();
+      });
+      const ok = await window.MercyLandAdmin.saveConfig(data);
+      if (ok) {
+        const okEl = document.getElementById(okId);
+        okEl.style.display = "block";
+        setTimeout(() => { okEl.style.display = "none"; }, 4000);
+      } else {
+        document.getElementById(errId).style.display = "block";
       }
+    }
+
+    // ---- Form Submissions ----
+    document.getElementById("formGeneral").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await saveForm([
+        ["f-pastor","pastor"],["f-phone","phone"],["f-email","email"],
+        ["f-address","address"],["f-pastorBio","pastorBio"]
+      ], "generalOk", "generalErr");
     });
 
-    document.getElementById("copyConfigBtn").addEventListener("click", () => {
-      const text = document.getElementById("configExport").textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Config JSON copied to clipboard!");
-      });
+    document.getElementById("formServices").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await saveForm([
+        ["f-sunday1","sunday1"],["f-sunday2","sunday2"],
+        ["f-tuesday","tuesday"],["f-thursday","thursday"]
+      ], "servicesOk", "servicesErr");
+    });
+
+    document.getElementById("formGiving").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await saveForm([
+        ["f-bankName","bankName"],["f-acctNum","acctNum"],
+        ["f-acctName","acctName"],["f-paystackUrl","paystackUrl"]
+      ], "givingOk", "givingErr");
+    });
+
+    document.getElementById("formCelebrant").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await saveForm([["f-driveUrl","driveUrl"]], "celebOk", "celebErr");
+    });
+
+    document.getElementById("formSocial").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await saveForm([
+        ["f-facebook","facebook"],["f-youtube","youtube"],
+        ["f-instagram","instagram"],["f-whatsapp","whatsapp"]
+      ], "socialOk", "socialErr");
     });
   </script>
   <script src="assets/js/main.js"></script>
