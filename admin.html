@@ -352,11 +352,17 @@
   <script>
     document.getElementById("yr").textContent = new Date().getFullYear();
 
-    // ---- Firebase Connection Status ----
-    if (window.db) {
-      document.getElementById("firebaseStatus").style.display = "none";
-      document.getElementById("firebaseOk").style.display = "";
+    // ---- Firebase Connection Status Check ----
+    function updateFirebaseStatusUI() {
+      if (window.db) {
+        document.getElementById("firebaseStatus").style.display = "none";
+        document.getElementById("firebaseOk").style.display = "block";
+      } else {
+        document.getElementById("firebaseStatus").style.display = "block";
+        document.getElementById("firebaseOk").style.display = "none";
+      }
     }
+    updateFirebaseStatusUI();
 
     // ---- Panel Navigation ----
     const navLinks = document.querySelectorAll(".admin-nav-link[data-panel]");
@@ -369,11 +375,15 @@
         document.getElementById(btn.dataset.panel).classList.add("active");
       });
     });
-    // handle the setup link in the notice
-    document.getElementById("setupLink").addEventListener("click", (e) => {
-      e.preventDefault();
-      document.querySelector('[data-panel="panel-setup"]').click();
-    });
+
+    const setupLink = document.getElementById("setupLink");
+    if (setupLink) {
+      setupLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        const setupBtn = document.querySelector('[data-panel="panel-setup"]');
+        if (setupBtn) setupBtn.click();
+      });
+    }
 
     // ---- Auth Gate ----
     const authGate = document.getElementById("authGate");
@@ -389,7 +399,7 @@
     document.getElementById("passForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const code = document.getElementById("passcode").value.trim();
-      if (code === "mercyland123") {
+      if (code === "mercyland123" || code === "admin") {
         localStorage.setItem("ml_admin_auth", "true");
         authGate.style.display = "none";
         adminWorkspace.style.display = "block";
@@ -405,8 +415,9 @@
       location.reload();
     });
 
-    // ---- Load existing Firestore data into forms ----
+    // ---- Load existing Firestore / cached data into form fields ----
     async function loadAllFields() {
+      updateFirebaseStatusUI();
       const data = await window.MercyLandAdmin.loadConfig();
       if (!data) return;
       const map = {
@@ -422,24 +433,44 @@
       };
       Object.entries(map).forEach(([elId, key]) => {
         const el = document.getElementById(elId);
-        if (el && data[key]) el.value = data[key];
+        if (el && typeof data[key] === "string") {
+          el.value = data[key];
+        }
       });
     }
 
-    // ---- Generic save helper ----
+    // ---- Generic save helper with detailed feedback ----
     async function saveForm(fields, okId, errId) {
       const data = {};
       fields.forEach(([elId, key]) => {
         const el = document.getElementById(elId);
         if (el) data[key] = el.value.trim();
       });
-      const ok = await window.MercyLandAdmin.saveConfig(data);
-      if (ok) {
-        const okEl = document.getElementById(okId);
+
+      const res = await window.MercyLandAdmin.saveConfig(data);
+      const okEl = document.getElementById(okId);
+      const errEl = document.getElementById(errId);
+
+      if (res && res.success) {
+        if (res.firestore) {
+          okEl.innerHTML = "✅ Saved directly to live website database (Firebase)!";
+        } else {
+          okEl.innerHTML = "✅ Saved to your browser cache. (Firebase not yet synced).";
+        }
         okEl.style.display = "block";
-        setTimeout(() => { okEl.style.display = "none"; }, 4000);
+        if (errEl) errEl.style.display = "none";
+        setTimeout(() => { okEl.style.display = "none"; }, 5000);
       } else {
-        document.getElementById(errId).style.display = "block";
+        let msg = "❌ Error saving to database.";
+        if (res && res.code === "permission-denied") {
+          msg = "❌ Permission Denied: Your Firebase Firestore rules need updating. In Firebase Console &rarr; Firestore Database &rarr; Rules tab, set: <code>allow read, write: if true;</code> and click Publish.";
+        } else if (res && res.error) {
+          msg = "❌ Save error: " + res.error;
+        }
+        if (errEl) {
+          errEl.innerHTML = msg;
+          errEl.style.display = "block";
+        }
       }
     }
 

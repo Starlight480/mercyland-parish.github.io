@@ -81,31 +81,47 @@
   <footer class="site-footer">
     <div class="wrap footer-grid">
       <div>
-        <div class="brand" style="color:#fff"><img class="mark" src="assets/images/rccg-logo.png" alt="RCCG logo" width="34" height="34" /> RCCG MercyLand Parish</div>
+        <div class="brand" style="color:#fff"><img class="mark" src="assets/images/rccg-logo.png" alt="RCCG logo" width="36" height="36" /> RCCG MercyLand Parish</div>
         <p style="margin-top:.8rem">A warm church family in Lekki Atlantic Garden, Lagos. All are welcome.</p>
-        <p class="muted"><span class="replace">Social links — to be added</span></p>
+        <div id="footer-social-links" style="display:flex;gap:0.75rem;margin-top:0.8rem;flex-wrap:wrap">
+          <a data-ml-href="facebook" href="#" target="_blank" rel="noopener" style="color:var(--gold-primary)">Facebook</a>
+          <a data-ml-href="youtube" href="#" target="_blank" rel="noopener" style="color:var(--gold-primary)">YouTube</a>
+          <a data-ml-href="instagram" href="#" target="_blank" rel="noopener" style="color:var(--gold-primary)">Instagram</a>
+          <a data-ml-href="whatsapp" href="#" target="_blank" rel="noopener" style="color:var(--gold-primary)">WhatsApp</a>
+        </div>
       </div>
       <div>
-        <h4>Visit</h4>
+        <h4>Visit Us</h4>
         <ul style="list-style:none;padding:0;margin:0">
-          <li>Plot 32/34, Lekki Atlantic Garden</li>
-          <li>Lekki–Epe Expy, Eti-Osa</li>
-          <li>Lagos 106104</li>
-          <li style="margin-top:.6rem"><a href="tel:08083258810">0808 325 8810</a></li>
+          <li data-ml="address">Plot 32/34, Lekki Atlantic Garden</li>
+          <li>Lekki–Epe Expy, Eti-Osa, Lagos 106104</li>
+          <li style="margin-top:.6rem"><a data-ml="phone" data-ml-href="phone" href="tel:08083258810">0808 325 8810</a></li>
+          <li style="margin-top:.3rem"><a data-ml="email" data-ml-href="email" href="mailto:info@mercylandparish.org">info@mercylandparish.org</a></li>
         </ul>
       </div>
       <div>
-        <h4>Service Times</h4>
+        <h4>Quick Links</h4>
         <ul style="list-style:none;padding:0;margin:0">
-          <li>Sunday · 7:00 AM – 12:00 PM</li>
-          <li>Tuesday · 6:30 PM – 8:00 PM</li>
-          <li>Thursday · 6:30 PM – 8:00 PM</li>
+          <li><a href="service-times.html">Service Times</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="birthdays.html">Birthdays</a></li>
+          <li><a href="ministries.html">Ministries</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="give.html">Give</a></li>
         </ul>
       </div>
     </div>
-    © <span id="yr"></span> RCCG MercyLand Parish · Lekki, Lagos · <a href="contact.html">Contact</a>
-    <span class="muted" style="display:block;margin-top:.4rem">Logo courtesy RCCG (CC BY-SA 4.0, via Wikimedia Commons).</span>
+    <div class="wrap footer-bottom">
+      © <span id="yr"></span> RCCG MercyLand Parish · Lekki, Lagos · <a href="contact.html">Contact</a> · <a href="admin.html">Admin Portal</a>
+      <span class="muted" style="display:block;margin-top:.4rem">Logo courtesy RCCG (CC BY-SA 4.0, via Wikimedia Commons).</span>
+    </div>
   </footer>
+
+  <!-- Firebase SDK & Live Data -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="assets/js/firebase-init.js"></script>
+  <script src="assets/js/site-data.js"></script>
   <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
   <script src="assets/js/main.js"></script>
 </body>
