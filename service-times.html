@@ -128,33 +128,69 @@
         <div class="next-service" data-next-service aria-live="polite"></div>
 
         <div class="grid grid--2" style="margin-top:2rem;align-items:start">
-          <div class="card reveal">
+          <div class="card reveal" style="padding:1.8rem">
             <h2>Weekly Schedule</h2>
-            <table class="schedule">
-              <thead><tr><th>Day</th><th>Service</th><th>Time</th></tr></thead>
-              <tbody>
-                <tr>
-                  <td class="day">Sunday</td>
-                  <td>Celebration Worship</td>
-                  <td class="open" data-ml-sunday-summary>7:15 AM &amp; 9:30 AM</td>
-                </tr>
-                <tr><td class="day">Monday</td><td>—</td><td class="closed">Closed</td></tr>
-                <tr>
-                  <td class="day">Tuesday</td>
-                  <td>Digging Deep (Bible Study)</td>
-                  <td class="open" data-ml="tuesday">6:30 PM – 8:00 PM</td>
-                </tr>
-                <tr><td class="day">Wednesday</td><td>—</td><td class="closed">Closed</td></tr>
-                <tr>
-                  <td class="day">Thursday</td>
-                  <td>Faith Clinic (Prayer)</td>
-                  <td class="open" data-ml="thursday">6:30 PM – 8:00 PM</td>
-                </tr>
-                <tr><td class="day">Friday</td><td>—</td><td class="closed">Closed</td></tr>
-                <tr><td class="day">Saturday</td><td>—</td><td class="closed">Closed</td></tr>
-              </tbody>
-            </table>
-            <p class="form-note" style="margin-top:1rem">Times can be confirmed or updated live anytime in the <a href="admin.html">Admin Portal</a>.</p>
+            <p class="form-note" style="margin-bottom:1.2rem">Join us in person at Lekki Atlantic Garden or connect via livestream.</p>
+
+            <div class="schedule-board">
+              <!-- Sunday Service -->
+              <div class="schedule-item schedule-item--active">
+                <div class="schedule-item__main">
+                  <span class="schedule-day-badge">Sunday</span>
+                  <div>
+                    <h4 class="schedule-service-name" data-ml="sundayTitle">Sunday Worship Celebration</h4>
+                    <p class="schedule-service-desc">Word, heartfelt worship, and communion</p>
+                  </div>
+                </div>
+                <div class="schedule-time-pill" data-ml-sunday-summary>
+                  7:15 AM &amp; 9:30 AM
+                </div>
+              </div>
+
+              <!-- Tuesday Bible Study -->
+              <div class="schedule-item schedule-item--active">
+                <div class="schedule-item__main">
+                  <span class="schedule-day-badge">Tuesday</span>
+                  <div>
+                    <h4 class="schedule-service-name" data-ml="tuesdayTitle">Digging Deep (Bible Study)</h4>
+                    <p class="schedule-service-desc">Interactive scripture teaching &amp; spiritual growth</p>
+                  </div>
+                </div>
+                <div class="schedule-time-pill" data-ml="tuesday">
+                  6:30 PM – 8:00 PM
+                </div>
+              </div>
+
+              <!-- Thursday Prayer Clinic -->
+              <div class="schedule-item schedule-item--active">
+                <div class="schedule-item__main">
+                  <span class="schedule-day-badge">Thursday</span>
+                  <div>
+                    <h4 class="schedule-service-name" data-ml="thursdayTitle">Faith Clinic (Prayer &amp; Healing)</h4>
+                    <p class="schedule-service-desc">Fervent intercession and spiritual warfare</p>
+                  </div>
+                </div>
+                <div class="schedule-time-pill" data-ml="thursday">
+                  6:30 PM – 8:00 PM
+                </div>
+              </div>
+
+              <!-- Off Days / Special Vigils -->
+              <div class="schedule-item schedule-item--closed">
+                <div class="schedule-item__main">
+                  <span class="schedule-day-badge">Mon · Wed · Fri · Sat</span>
+                  <div>
+                    <h4 class="schedule-service-name" style="font-size:0.95rem;color:var(--text-muted)">Off-days / Personal Devotion</h4>
+                    <p class="schedule-service-desc" data-ml="specialProgramNote">Special programs &amp; monthly vigils announced in advance</p>
+                  </div>
+                </div>
+                <div class="schedule-time-pill closed">
+                  No public service
+                </div>
+              </div>
+            </div>
+
+            <p class="form-note" style="margin-top:1.2rem">Times can be confirmed or updated live anytime in the <a href="admin.html">Admin Portal</a>.</p>
           </div>
 
           <div class="card reveal">

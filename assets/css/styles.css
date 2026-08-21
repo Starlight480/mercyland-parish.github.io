@@ -426,7 +426,124 @@ body.drawer-open {
 .visit-fact h4 { margin: 0; font-size: 1.05rem; color: var(--green-dark); }
 .visit-fact p { margin: 0; color: var(--text-muted); font-size: .95rem; }
 
-/* ---- Schedule Table ---- */
+/* ---- Modern Responsive Schedule Board (Mobile & Desktop) ---- */
+.schedule-board {
+  display: grid;
+  gap: 0.9rem;
+  margin-block: 1.2rem;
+}
+.schedule-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 1.1rem 1.3rem;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.schedule-item:hover {
+  border-color: var(--green-mid);
+  box-shadow: var(--shadow-sm);
+}
+.schedule-item--active {
+  border-left: 4px solid var(--gold-primary);
+}
+.schedule-item--closed {
+  background: var(--bg-page);
+  opacity: 0.72;
+}
+.schedule-item__main {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex: 1;
+}
+.schedule-day-badge {
+  font-family: var(--ui);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+  background: var(--green-soft);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  min-width: 90px;
+  text-align: center;
+}
+.schedule-item--closed .schedule-day-badge {
+  background: var(--line);
+  color: var(--text-muted);
+}
+.schedule-service-name {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+.schedule-service-desc {
+  margin: 0.15rem 0 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+.schedule-time-pill {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--blue-primary);
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-border);
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.schedule-time-pill.closed {
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  font-family: var(--body);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Mobile Schedule Card View */
+@media (max-width: 680px) {
+  .schedule-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 1rem;
+  }
+  .schedule-item__main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .schedule-day-badge {
+    min-width: auto;
+    font-size: 0.78rem;
+    padding: 0.25rem 0.65rem;
+  }
+  .schedule-time-pill {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.98rem;
+    padding: 0.55rem 0.8rem;
+  }
+  .schedule-time-pill.closed {
+    width: auto;
+    justify-content: flex-start;
+    padding: 0;
+  }
+}
+
+/* ---- Classic Schedule Table (kept for legacy support) ---- */
 .schedule { width: 100%; border-collapse: collapse; }
 .schedule th, .schedule td { text-align: left; padding: .9rem 1.1rem; border-bottom: 1px solid var(--line); }
 .schedule thead th { font-family: var(--body); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
